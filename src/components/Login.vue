@@ -59,6 +59,7 @@
     background: white;
     border: 1px solid rgb(57,141,238);
     border-radius: 5px;
+    cursor: pointer;
   }
 }
 </style>
