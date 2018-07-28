@@ -3,21 +3,49 @@
     <Header></Header>
     <div class="content">
       <div class="title">注册用户</div>
-      <input type="text" name="username" placeholder="用户名">
-      <input type="text" name="email" placeholder="邮箱" >
-      <input type="password" name="pwd" placeholder="密码">
-      <div class="btn"><span>立即注册</span></div>
+      <input type="text" name="username" placeholder="用户名" v-model="username">
+      <input type="text" name="email" placeholder="邮箱" v-model="email">
+      <input type="password" name="pwd" placeholder="密码" v-model="password">
+      <div class="btn"><span @click="toRegister">立即注册</span></div>
     </div>
   </div>
 </template>
 
 <script>
   import Header from '../components/Header'
+  import axios from 'axios'
     export default {
         name: "Register",
-      components:{
+        components:{
           Header
-      }
+        },
+        data(){
+            return{
+                username:"",
+                email:"",
+                password:""
+            }
+        },
+        methods:{
+            toRegister(){
+                let params = {
+                    username:this.username,
+                    email:this.email,
+                    password:this.password
+                }
+                axios.post('/api/note',params).then(res =>{
+                    if(res.data.code == 200){
+                        alert("注册成功！");
+                        this.$router.push('/')
+                    }else {
+                        alert(res.data.msg);
+                        this.username = "";
+                        this.email = "";
+                        this.password = ""
+                    }
+                })
+            }
+        }
     }
 </script>
 
@@ -44,6 +72,7 @@
       font-size: 28px;
       text-align: center;
       margin-top: 30px;
+      cursor: pointer;
       span{
         background: rgb(57,141,238);
         color: white;
