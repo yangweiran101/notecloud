@@ -18,6 +18,7 @@
         </div>
         <div class="email">{{loginMsg.email}}</div>
         <div class="username">用户{{loginMsg.username}}</div>
+        <span class="btn2" @click="gotoModify(loginMsg.email)">修改信息</span>
         <span class="btn2" @click="gotoDelete">退出登录</span>
       </div>
     </div>
@@ -86,6 +87,9 @@
               this.loginMsg.email = '';
               this.loginMsg.headpic = '';
             }
+          },
+          gotoModify(email){
+            this.$router.push({path:'/Modification',query:{email}})
           },
           gotoDelete(){
             Cookies.remove('username');
@@ -161,7 +165,7 @@
 
     .email{
       font-size: 18px;
-      margin: 20px auto;
+      margin: 10px auto;
       text-align: center;
       width: 320px;
       height: 40px;
@@ -173,7 +177,7 @@
     }
     .username{
       font-size: 28px;
-      margin: 20px auto;
+      margin: 10px auto;
       text-align: center;
       width: 320px;
       height: 40px;
@@ -184,6 +188,7 @@
     }
     .btn2{
       display: block;
+      margin-bottom: 10px;
       text-align: center;
       width: 320px;
       height: 40px;
