@@ -16,8 +16,8 @@
         <div class="headpic">
           <img :src="loginMsg.headpic" >
         </div>
-        <div class="email">邮箱:{{loginMsg.email}}</div>
-        <div class="username">用户名:{{loginMsg.username}}</div>
+        <div class="email">{{loginMsg.email}}</div>
+        <div class="username">用户{{loginMsg.username}}</div>
         <span class="btn2" @click="gotoDelete">退出登录</span>
       </div>
     </div>
@@ -49,17 +49,19 @@
               password:this.password
             };
             axios.post('/api/login',params).then(res =>{
-              console.log(res);
               if(res.data.code ==200){
-                  this.$message('登陆成功，欢迎回来' +res.data.data.username);
-                  this.loginMsg.username = res.data.data.username;
-                  this.loginMsg.email = res.data.data.email;
-                  this.loginMsg.headpic = res.data.data.headpic;
+                this.$message('登陆成功，欢迎回来' +res.data.data.username);
+                this.loginMsg.username = res.data.data.username;
+                this.loginMsg.email = res.data.data.email;
+                this.loginMsg.headpic = res.data.data.headpic;
 
-                  Cookies.set('username',this.loginMsg.username , { expires: 14 });
-                  Cookies.set('email',this.loginMsg.email , { expires: 14 });
-                  Cookies.set('headpic',this.loginMsg.headpic , { expires: 14 });
-                  this.$router.push('/')
+                this.$store.commit("getLogin",this.loginMsg.username);
+                this.$store.commit("getHeadpic",this.loginMsg.headpic);
+
+                Cookies.set('username',this.loginMsg.username , { expires: 14 });
+                Cookies.set('email',this.loginMsg.email , { expires: 14 });
+                Cookies.set('headpic',this.loginMsg.headpic , { expires: 14 });
+                this.$router.push('/')
               }else{
                 this.$message({
                   message: res.data.msg,
@@ -89,11 +91,16 @@
             Cookies.remove('username');
             Cookies.remove('email');
             Cookies.remove('headpic');
-            this.getUserMsg()
+
+            this.getUserMsg();
+            this.$store.commit("getLogin",'')
           }
         },
       mounted(){
-        this.getUserMsg()
+        this.getUserMsg();
+        this.$store.commit("getLogin",this.loginMsg.username);
+        this.$store.commit("getHeadpic",this.loginMsg.headpic);
+
       }
     }
 </script>
@@ -153,7 +160,7 @@
     }
 
     .email{
-      font-size: 24px;
+      font-size: 18px;
       margin: 20px auto;
       text-align: center;
       width: 320px;

@@ -13,6 +13,7 @@
 
 <script>
   import Header from '../components/Header'
+  import Cookies from 'js-cookie'
   import axios from 'axios'
     export default {
         name: "Register",
@@ -38,6 +39,13 @@
                 axios.post('/api/note',params).then(res =>{
                     if(res.data.code == 200){
                         this.$message("注册成功！");
+
+                      Cookies.set('username',this.username , { expires: 14 });
+                      Cookies.set('email',this.email , { expires: 14 });
+                      Cookies.set('headpic',this.headpic , { expires: 14 });
+                      this.$store.commit("getLogin",this.username);
+                      this.$store.commit("getHeadpic",this.headpic);
+
                         this.$router.push('/')
                     }else {
                       this.$message({

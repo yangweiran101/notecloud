@@ -1,6 +1,6 @@
 <template>
     <div class="list">
-      <div class="box" v-for="item in listData" style="cursor: pointer" @click="gotoDetail(item.id)">
+      <div class="box" v-for="item in listData" style="cursor: pointer" @click="gotoDetail(item._id)">
         <div class="header">
           <div class="fleft">
             <img src="../assets/img/pic1.jpg" alt="">
@@ -16,7 +16,6 @@
               <span style="margin-right: 20px">分类:类库框架</span>
             </div>
           </div>
-
         </div>
         <div class="content" style="clear: both" v-html="item.content"></div>
       </div>
@@ -54,46 +53,51 @@
   padding: 15px;
   background: #fff;
   box-sizing: border-box;
-  .header{
-    padding: 0 10px;
-    .fleft{
-      float: left;
-      padding: 10px;
-      img{
-        width: 80px;
-        height: 100px;
+  .box{
+    .header{
+      padding: 0 10px;
+      .fleft{
+        float: left;
+        padding: 10px;
+        img{
+          width: 80px;
+          height: 100px;
+        }
       }
-    }
-    .fright{
-      float: left;
-      padding: 10px;
-      .name{
-        margin-bottom: 10px;
-        .username{
-          color: rgb(57,141,238);
+      .fright{
+        float: left;
+        padding: 10px;
+        .name{
+          margin-bottom: 10px;
+          .username{
+            color: rgb(57,141,238);
+            font-size: 20px;
+            font-weight: 800;
+          }
+          .title{
+            color: #333;
+            font-size: 24px;
+            font-weight: 700;
+          }
+        }
+        .status{
+          background: rgb(244,245,247);
+          width: 520px;
+          height: 50px;
           font-size: 20px;
-          font-weight: 800;
+          line-height: 50px;
+          font-weight: 600;
+          color: rgb(167,167,167);
         }
-        .title{
-          color: #333;
-          font-size: 24px;
-          font-weight: 700;
-        }
-      }
-      .status{
-        background: rgb(244,245,247);
-        width: 520px;
-        height: 50px;
-        font-size: 20px;
-        line-height: 50px;
-        font-weight: 600;
-        color: rgb(167,167,167);
       }
     }
+    .content{
+      padding: 10px 10px;
+      color: rgb(155,155,155);
+      overflow: hidden;
+      height: 48px;
+    }
   }
-  .content{
-    padding: 10px 10px;
-    color: rgb(155,155,155);
-  }
+
 }
 </style>

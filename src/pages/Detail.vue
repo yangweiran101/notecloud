@@ -3,7 +3,6 @@
     <Header></Header>
     <div class="middle">
       <h1>{{detailData.title}}</h1>
-      <img :src="detailData.pic" alt="">
       <div class="content" v-html="detailData.content"></div>
     </div>
   </div>
@@ -27,7 +26,7 @@
         getData(){
           let id = this.$route.query.id;
           console.log(id);
-          axios.post('/api/getArticleDetail','id='+id).then(res => {
+          axios.post('/api/getArticleDetail','_id='+id).then(res => {
             this.detailData = res.data.data[0];
             console.log(res)
           })

@@ -1,7 +1,7 @@
 <template>
   <swiper class="swipe" autoplay="true">
-    <swiperSlide v-for="item in swipeData"  class="swipe-item">
-      <img :src="item.pic">
+    <swiperSlide v-for="item in swipeData" :key="item._id" class="swipe-item">
+      <img :src="item.pic" @click="gotoDetail(item._id)" >
       <div class="title">{{item.title}}</div>
     </swiperSlide>
   </swiper>
@@ -21,14 +21,18 @@
     },
     data() {
       return {
-        swipeData: {}
+        swipeData: [],
+        id:''
       }
     },
     methods: {
       getSwipe() {
         axios.get('/api/getArticle').then(res => {
-          this.swipeData = res.data.data
+          this.swipeData = res.data.data;
         })
+      },
+      gotoDetail(id){
+        this.$router.push({path:'/Detail',query:{id}})
       }
     },
     created() {

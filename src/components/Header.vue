@@ -5,8 +5,8 @@
         <h1 style="cursor: pointer">云笔记</h1>
       </div>
       <div class="right">
-        <i class="iconfont icon-sousuo"></i>
-        <span class="write">写笔记</span>
+        <i class="iconfont icon-sousuo" @click="gotoSearch"></i>
+        <span class="write" @click="gotoWrite">写笔记</span>
       </div>
     </div>
   </div>
@@ -18,6 +18,17 @@
       methods:{
         backIndex(){
           this.$router.push('/')
+        },
+        gotoSearch(){
+          this.$router.push('/Search')
+        },
+        gotoWrite(){
+          console.log(this.$store.state.name);
+          if(this.$store.state.name){
+            this.$router.push('/Write')
+          }else{
+            this.$router.push('/Register')
+          }
         }
       }
     }
@@ -53,6 +64,7 @@
         color: rgb(57,141,238);
         background: #fff;
         border-radius: 5px;
+        cursor: pointer;
       }
     }
   }
