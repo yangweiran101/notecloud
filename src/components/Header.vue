@@ -1,8 +1,8 @@
 <template>
   <div class="box">
     <div class="content">
-      <div class="left">
-        <h1>云笔记</h1>
+      <div class="left" @click="backIndex">
+        <h1 style="cursor: pointer">云笔记</h1>
       </div>
       <div class="right">
         <i class="iconfont icon-sousuo"></i>
@@ -14,7 +14,12 @@
 
 <script>
     export default {
-        name: "Header"
+        name: "Header",
+      methods:{
+        backIndex(){
+          this.$router.push('/')
+        }
+      }
     }
 </script>
 

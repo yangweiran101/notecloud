@@ -5,7 +5,7 @@
       <div class="title">注册用户</div>
       <input type="text" name="username" placeholder="用户名" v-model="username">
       <input type="text" name="email" placeholder="邮箱" v-model="email">
-      <input type="password" name="pwd" placeholder="密码" v-model="password">
+      <input type="password" name="pwd" placeholder="密码" v-model="password" @keyup.enter="toRegister">
       <div class="btn"><span @click="toRegister">立即注册</span></div>
     </div>
   </div>
@@ -21,9 +21,10 @@
         },
         data(){
             return{
-                username:"",
-                email:"",
-                password:""
+              username:"",
+              email:"",
+              password:"",
+              headpic:"https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1257285701,821563668&fm=27&gp=0.jpg"
             }
         },
         methods:{
@@ -31,14 +32,18 @@
                 let params = {
                     username:this.username,
                     email:this.email,
-                    password:this.password
+                    password:this.password,
+                    headpic:this.headpic
                 }
                 axios.post('/api/note',params).then(res =>{
                     if(res.data.code == 200){
-                        alert("注册成功！");
+                        this.$message("注册成功！");
                         this.$router.push('/')
                     }else {
-                        alert(res.data.msg);
+                      this.$message({
+                        message: res.data.msg,
+                        type: 'warning'
+                      });
                         this.username = "";
                         this.email = "";
                         this.password = ""
