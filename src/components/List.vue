@@ -3,7 +3,7 @@
       <div class="box" v-for="item in listData" style="cursor: pointer" @click="gotoDetail(item._id)">
         <div class="header">
           <div class="fleft">
-            <img src="../assets/img/pic1.jpg" alt="">
+            <img :src="item.userpic" >
           </div>
           <div class="fright">
             <div class="name">

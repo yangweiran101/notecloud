@@ -3,6 +3,7 @@
     <Header></Header>
     <div class="middle">
       <h1>{{detailData.title}}</h1>
+      <div style="text-align: center;font-size: 18px">作者:{{detailData.username}}</div>
       <div class="content" v-html="detailData.content"></div>
     </div>
   </div>

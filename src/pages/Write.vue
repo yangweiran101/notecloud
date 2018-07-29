@@ -100,6 +100,7 @@
     padding: 5px 20px;
     margin: 20px 10px;
     color: #fff;
+    cursor: pointer;
     border: 1px solid rgb(57,141,238);
     background: rgb(57,141,238);
     border-radius: 5px;
