@@ -36,8 +36,14 @@
               newpassword:this.newpwdone
             };
             axios.post('/api/Update',params).then(res =>{
-              this.$message(res.data.msg);
-              this.$router.push('/')
+
+              if(res.data.code =='200'){
+                this.$message(res.data.msg);
+                this.$router.push('/');
+              }else{
+                this.$message(res.data.msg);
+              }
+
             })
           }else {
             this.$message('两次输入的新密码不一致');

@@ -4,7 +4,6 @@
       <div class="content">
         <div class="content-title" >标题</div>
         <input type="text" v-model="title" class="title">
-        <input type="number" v-model="id" class="id">
         <div class="content-title">内容</div>
         <div id="editorElem" style="text-align:left"></div>
         <div class="send" @click="getContent">发布</div>
@@ -27,7 +26,6 @@
           editorContent: '',
           pic:'',
           title:'',
-          id:''
         }
       },
       methods: {
@@ -42,17 +40,19 @@
             pic:this.pic,
             title:this.title,
             content:this.editorContent,
-            id:this.id
           };
-          console.log(params)
-          axios.post('/api/addArticle',params).then(res =>{
-            if(res.data.msg =='文章添加成功'){
-              this.$router.push('/');
-              this.$message({message: res.data.msg});
-            }else{
-              this.$message({message: res.data.msg});
-            }
-          })
+          if(this.title.length <=15){
+            axios.post('/api/addArticle',params).then(res =>{
+              if(res.data.msg =='文章添加成功'){
+                this.$router.push('/');
+                this.$message({message: res.data.msg});
+              }else{
+                this.$message({message: res.data.msg});
+              }
+            })
+          }else {
+            this.$message('标题太长，请控制在15字以内');
+          }
         }
       },
       mounted() {
@@ -81,17 +81,10 @@
     margin: 10px;
   }
   .title{
-    width: 95%;
-    box-sizing: border-box;
-    height: 45px;
-  }
-  .id{
-    width: 5%;
-    float: right;
+    width: 100%;
     box-sizing: border-box;
     height: 45px;
     font-size: 24px;
-    text-align: center;
   }
   .send{
     width: 80px;

@@ -7,7 +7,7 @@
           </div>
           <div class="fright">
             <div class="name">
-              <span class="username">笔记丸子</span>|
+              <span class="username">{{item.username}}</span>|
               <span class="title">{{item.title}}</span>
             </div>
             <div class="status">
@@ -78,6 +78,8 @@
             color: #333;
             font-size: 24px;
             font-weight: 700;
+            width: 400px;
+            overflow: hidden;
           }
         }
         .status{

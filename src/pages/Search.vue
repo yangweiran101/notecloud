@@ -2,13 +2,14 @@
     <div class="search">
       <Header></Header>
       <div class="search-box">
-          <input type="text" placeholder="请输入关键字"><span>搜索</span>
+        <input type="text" placeholder="请输入关键字" v-model="keyword" @keyup.enter="gotoSearch">
+        <span @click="gotoSearch" >搜索</span>
       </div>
       <div class="search-list">
         <div class="list-header">
           <div class="right">相关笔记</div>
         </div>
-        <div class="list-detail" v-for="item in listData" style="cursor: pointer" @click="gotoDetail(item.id)">
+        <div class="list-detail" v-for="item in listData" style="cursor: pointer" @click="gotoDetail(item._id)">
           <div class="header">
             <div class="fleft">
               <img src="../assets/img/pic1.jpg" alt="">
@@ -41,7 +42,8 @@
       },
       data(){
         return{
-          listData:[]
+          listData:[],
+          keyword:''
         }
       },
       methods:{
@@ -49,6 +51,18 @@
           axios.get('/api/getArticle').then(res => {
             this.listData = res.data.data
           })
+        },
+        gotoSearch(){
+          let keyword = this.keyword;
+          if(keyword ==''){
+            this.getData();
+          }else{
+            axios.get('/api/getSezrch',{keyword}).then(res => {
+              this.listData = res.data.data;
+              this.$message(res.data.msg);
+            })
+          }
+
         },
         gotoDetail(id){
           this.$router.push({path:'/Detail',query:{id}})
@@ -152,7 +166,7 @@
       .content{
         padding: 10px 10px;
         margin-bottom: 10px;
-        height: 100px;
+        height: 70px;
         color: rgb(155,155,155);
         overflow: hidden;
       }
