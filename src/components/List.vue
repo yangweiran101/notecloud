@@ -28,7 +28,7 @@
         name: "List",
       data(){
           return{
-            listData:{}
+            listData:{},
           }
       },
       methods:{

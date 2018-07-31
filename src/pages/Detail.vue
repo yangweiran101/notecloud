@@ -7,14 +7,14 @@
       <div class="content" v-html="detailData.content"></div>
       <div class="detail-comment">
         <div class="comment-list" v-for="item in commentList">
+          <div class="list-userpic"><img :src="item.userpic"></div>
           <div class="list-user">{{item.username}}</div>
           <div class="list-content">{{item.content}}</div>
         </div>
         <div class="comment-input">
-          <input type="text" v-model="commentContent" class="input">
+          <input type="text" v-model="commentContent" @keyup.enter="gotoComment" class="input">
           <span @click="gotoComment">评论</span>
         </div>
-
       </div>
     </div>
   </div>
@@ -49,12 +49,14 @@
           }else {
             let params = {
               username:this.$store.state.name,
+              userpic:this.$store.state.headpic,
               content:this.commentContent,
               article:this.$route.query.id,
             };
             axios.post('/api/addComment',params).then(res => {
               this.$message(res.data.msg);
-              this.getComment()
+              this.getComment();
+              this.commentContent =null
             })
           }
         },
@@ -92,6 +94,8 @@
     .content{
       font-size: 30px;
       padding: 10px 20px;
+      width: 80%;
+      margin: 0 auto;
     }
     .detail-comment{
       width: 100%;
@@ -102,13 +106,24 @@
         box-sizing: border-box;
         border: 1px solid rgb(57,141,238);
         border-radius: 3px;
+        .list-userpic{
+          float: left;
+          margin-left: 10px;
+          img{
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+          }
+        }
         .list-user{
           font-size: 24px;
+          float: left;
           font-weight: bolder;
           color: rgb(57,141,238);
           margin: 10px 20px;
         }
         .list-content{
+          clear: both;
           font-size: 20px;
           color: #333;
           margin-top: 5px;
@@ -116,6 +131,7 @@
         }
       }
       .comment-input{
+        clear: both;
         width: 80%;
         margin: 10px auto;
         .input{

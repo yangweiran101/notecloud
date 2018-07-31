@@ -3,6 +3,7 @@
     <Header></Header>
     <div class="content">
       <div class="title">修改信息</div>
+      <Upload></Upload>
       <input type="password" name="pwd" placeholder="请输入原密码" v-model="password">
       <input type="password" name="newpwdone" placeholder="请输入新密码" v-model="newpwdone">
       <input type="password" name="newpwdtwo" placeholder="请再次输入新密码" v-model="newpwdtwo" @keyup.enter="">
@@ -13,27 +14,32 @@
 
 <script>
   import Header from '../components/Header'
+  import Upload from '../components/Upload'
   import Cookies from 'js-cookie'
   import axios from 'axios'
     export default {
         name: "Modification",
       components:{
-          Header
+        Header,
+        Upload
       },
       data(){
           return{
             password:'',
             newpwdone:'',
             newpwdtwo:'',
+            imageUrl: ''
           }
       },
       methods: {
         toModify() {
           if(this.newpwdone==this.newpwdtwo){
+            this.imageUrl = Cookies.get('headpic');
             let params = {
               email:this.$route.query.email,
               password:this.password,
-              newpassword:this.newpwdone
+              newpassword:this.newpwdone,
+              headpic:this.imageUrl
             };
             axios.post('/api/Update',params).then(res =>{
 
@@ -43,15 +49,48 @@
               }else{
                 this.$message(res.data.msg);
               }
-
             })
           }else {
             this.$message('两次输入的新密码不一致');
           }
-        }
+        },
+
       }
     }
 </script>
+
+<style>
+  .avatar-uploader .el-upload {
+    border: 1px dashed #d9d9d9;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  .tips{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top:10px;
+    color: #999;
+  }
+  .avatar-uploader .el-upload:hover {
+    border-color: #409EFF;
+  }
+  .avatar-uploader-icon {
+    font-size: 28px;
+    color: #8c939d;
+    width: 178px;
+    height: 178px;
+    line-height: 178px;
+    text-align: center;
+  }
+  .avatar {
+    width: 178px;
+    height: 178px;
+    display: block;
+  }
+</style>
 
 <style scoped lang="less">
   .modify{
