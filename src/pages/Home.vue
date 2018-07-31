@@ -25,9 +25,6 @@
         Login,
         List
       },
-      created(){
-          console.log(this.$store.state.headpic)
-      }
     }
 </script>
 

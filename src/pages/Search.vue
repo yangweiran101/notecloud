@@ -57,8 +57,12 @@
           if(keyword ==''){
             this.getData();
           }else{
-            axios.get('/api/getSezrch',{keyword}).then(res => {
+            axios.get('/api/getSearch', {
+              params:{
+                keyword:keyword
+              }}).then(res => {
               this.listData = res.data.data;
+              console.log(res)
               this.$message(res.data.msg);
             })
           }
