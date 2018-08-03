@@ -23,7 +23,6 @@
 </template>
 
 <script>
-  import axios from 'axios'
     export default {
         name: "List",
       data(){
@@ -33,8 +32,8 @@
       },
       methods:{
         getData(){
-          axios.get('/api/getArticle').then(res => {
-            this.listData = res.data.data
+          this.$axios.get('getArticle').then(res => {
+            this.listData = res.data;
           })
         },
         gotoDetail(id){

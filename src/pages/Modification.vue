@@ -41,21 +41,20 @@
               newpassword:this.newpwdone,
               headpic:this.imageUrl
             };
-            axios.post('/api/Update',params).then(res =>{
+            this.$axios.post('Update',params).then(res =>{
 
-              if(res.data.code =='200'){
-                this.$message(res.data.msg);
+              if(res.code =='200'){
+                this.$message(res.msg);
                 this.$router.push('/');
               }else{
-                this.$message(res.data.msg);
+                this.$message(res.msg);
               }
             })
           }else {
             this.$message('两次输入的新密码不一致');
           }
         },
-
-      }
+      },
     }
 </script>
 

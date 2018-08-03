@@ -22,7 +22,7 @@
 
 <script>
   import Header from '../components/Header'
-  import axios from 'axios'
+
     export default {
       name: "Detail",
       components:{
@@ -39,8 +39,8 @@
       methods:{
         getData(){
           let id = this.$route.query.id;
-          axios.post('/api/getArticleDetail','_id='+id).then(res => {
-            this.detailData = res.data.data[0];
+          this.$axios.post('getArticleDetail','_id='+id).then(res => {
+            this.detailData = res.data[0];
           })
         },
         gotoComment(){
@@ -53,16 +53,16 @@
               content:this.commentContent,
               article:this.$route.query.id,
             };
-            axios.post('/api/addComment',params).then(res => {
-              this.$message(res.data.msg);
+            this.$axios.post('addComment',params).then(res => {
+              this.$message(res.msg);
               this.getComment();
-              this.commentContent =null
+              this.commentContent =''
             })
           }
         },
         getComment(){
-          axios.get('/api/getComment',{params: {article: this.$route.query.id}}).then(res => {
-            this.commentList = res.data.data
+          this.$axios.get('getComment', {article: this.$route.query.id}).then(res => {
+            this.commentList = res.data
           })
         }
       },

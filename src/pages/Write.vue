@@ -14,7 +14,6 @@
 
 <script>
   import E from 'wangeditor'
-  import axios from  'axios'
   import Header from '../components/Header'
     export default {
         name: "Write",
@@ -42,12 +41,12 @@
             content:this.editorContent,
           };
           if(this.title.length <=15){
-            axios.post('/api/addArticle',params).then(res =>{
-              if(res.data.msg =='文章添加成功'){
+            this.$axios.post('addArticle',params).then(res =>{
+              if(res.msg =='文章添加成功'){
                 this.$router.push('/');
-                this.$message({message: res.data.msg});
+                this.$message({message: res.msg});
               }else{
-                this.$message({message: res.data.msg});
+                this.$message({message: res.msg});
               }
             })
           }else {

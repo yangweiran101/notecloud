@@ -25,7 +25,7 @@
 </template>
 
 <script>
-  import axios from 'axios'
+
   import Cookies from 'js-cookie'
     export default {
         name: "Login",
@@ -49,12 +49,12 @@
               email:this.email,
               password:this.password
             };
-            axios.post('/api/login',params).then(res =>{
-              if(res.data.code ==200){
-                this.$message('登陆成功，欢迎回来' +res.data.data.username);
-                this.loginMsg.username = res.data.data.username;
-                this.loginMsg.email = res.data.data.email;
-                this.loginMsg.headpic = res.data.data.headpic;
+            this.$axios.post('login',params).then(res =>{
+              if(res.code ==200){
+                this.$message('登陆成功，欢迎回来' +res.data.username);
+                this.loginMsg.username = res.data.username;
+                this.loginMsg.email = res.data.email;
+                this.loginMsg.headpic = res.data.headpic;
 
                 this.$store.commit("getLogin",this.loginMsg.username);
                 this.$store.commit("getHeadpic",this.loginMsg.headpic);
@@ -65,7 +65,7 @@
                 this.$router.push('/')
               }else{
                 this.$message({
-                  message: res.data.msg,
+                  message: res.msg,
                   type: 'warning'
                 });
                 this.email ='';

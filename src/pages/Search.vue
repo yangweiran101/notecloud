@@ -34,7 +34,6 @@
 
 <script>
   import Header from '../components/Header'
-  import  axios from  'axios'
     export default {
       name: "Search",
       components:{
@@ -48,8 +47,8 @@
       },
       methods:{
         getData(){
-          axios.get('/api/getArticle').then(res => {
-            this.listData = res.data.data
+          this.$axios.get('getArticle').then(res => {
+            this.listData = res.data
           })
         },
         gotoSearch(){
@@ -57,13 +56,9 @@
           if(keyword ==''){
             this.getData();
           }else{
-            axios.get('/api/getSearch', {
-              params:{
-                keyword:keyword
-              }}).then(res => {
-              this.listData = res.data.data;
-              console.log(res)
-              this.$message(res.data.msg);
+            this.$axios.get('getSearch', {keyword:keyword}).then(res =>{
+              this.listData = res.data;
+              this.$message(res.msg);
             })
           }
 
